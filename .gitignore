@@ -46,6 +46,3 @@ out/
 # Cache
 .cache/
 .vscode/
-
-# Local data (if you store CSV locally during dev)
-backend/books.csv
