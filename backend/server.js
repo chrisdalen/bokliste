@@ -19,4 +19,6 @@ app.post("/books", (req, res) => {
     res.send({ ok: true });
 });
 
-app.listen(10000, () => console.log("Server kjører på port 10000"));
+// Render krever dette
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log("Server kjører på port " + PORT));

@@ -29,23 +29,18 @@ function renderBooks(list) {
         bookList.appendChild(div);
     });
 
-    // Legg til event listeners
     document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
         cb.addEventListener('change', async (e) => {
             const index = e.target.dataset.index;
             const field = e.target.dataset.field;
 
-            // Oppdater i minnet
             books[index][field] = e.target.checked ? "TRUE" : "FALSE";
 
-            // Lagre til backend
             await saveCSV();
         });
     });
 }
 
-
-// Filtrering
 searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     const filtered = books.filter(b =>
@@ -54,10 +49,10 @@ searchInput.addEventListener('input', () => {
     renderBooks(filtered);
 });
 
-// Hent CSV direkte fra prosjektet
-Papa.parse('books.csv', {
+// 🚀 Hent CSV fra backend, ikke lokalt
+Papa.parse('https://bokliste.onrender.com/books', {
     download: true,
-    header: true,      // gir deg objekter med feltnavn
+    header: true,
     skipEmptyLines: true,
     complete: function(results) {
         books = results.data;
@@ -66,12 +61,9 @@ Papa.parse('books.csv', {
     error: function(err) {
         console.error('Kunne ikke laste CSV:', err);
     }
-
-
 });
 
 async function saveCSV() {
-    // Konverter books[] tilbake til CSV
     const header = "tittel,forfatter,serie,nummer,har_lest,har_boka,kommentar\n";
     const rows = books.map(b =>
         `${b.tittel},${b.forfatter},${b.serie || ""},${b.nummer || ""},${b.har_lest},${b.har_boka},${b.kommentar || ""}`
@@ -79,7 +71,8 @@ async function saveCSV() {
 
     const csv = header + rows;
 
-    await fetch("https://bokliste-backend.onrender.com/books", {
+    // 🚀 Lagre til backend
+    await fetch("https://bokliste.onrender.com/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ csv })
