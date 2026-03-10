@@ -64,17 +64,15 @@ Papa.parse('https://bokliste.onrender.com/books', {
 });
 
 async function saveCSV() {
-    const header = "tittel,forfatter,serie,nummer,har_lest,har_boka,kommentar\n";
-    const rows = books.map(b =>
-        `${b.tittel},${b.forfatter},${b.serie || ""},${b.nummer || ""},${b.har_lest},${b.har_boka},${b.kommentar || ""}`
-    ).join("\n");
+    // Bruk Papa til å lage korrekt CSV med header + quoting
+    const csv = Papa.unparse(books, {
+        header: true
+    });
 
-    const csv = header + rows;
-
-    // 🚀 Lagre til backend
     await fetch("https://bokliste.onrender.com/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ csv })
     });
 }
+
