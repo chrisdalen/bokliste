@@ -11,6 +11,30 @@
 
 <input type="text" id="searchInput" placeholder="Søk tittel eller forfatter...">
 
+<button id="toggleAddBook" class="toggle-addbook">+</button>
+
+<div id="addBook" class="addbook-container">
+    <h3>Legg til ny bok</h3>
+
+    <input id="newTitle" placeholder="Tittel"><br>
+    <input id="newAuthor" placeholder="Forfatter"><br>
+    <input id="newSeries" placeholder="Serie (valgfritt)"><br>
+    <input id="newNumber" placeholder="Nummer (valgfritt)" type="number"><br>
+
+    Har lest:
+    <input type="checkbox" id="newRead">
+
+    | Har boka:
+    <input type="checkbox" id="newOwned">
+
+    <br>
+    <input id="newComment" placeholder="Kommentar (valgfritt)"><br><br>
+
+    <button id="addBookBtn">Legg til bok</button>
+</div>
+
+
+
 <div id="bookList"></div>
 
 

@@ -51,3 +51,27 @@ h1 {
 .book br {
     margin-bottom: 0.3rem;
 }
+
+/* Skjult som standard */
+.addbook-container {
+    display: none;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+/* + knappen */
+.toggle-addbook {
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.toggle-addbook:hover {
+    color: #444;
+}

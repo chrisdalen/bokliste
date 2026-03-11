@@ -76,3 +76,56 @@ async function saveCSV() {
     });
 }
 
+document.getElementById("addBookBtn").addEventListener("click", async () => {
+    const tittel = document.getElementById("newTitle").value.trim();
+    const forfatter = document.getElementById("newAuthor").value.trim();
+    const serie = document.getElementById("newSeries").value.trim();
+    const nummer = document.getElementById("newNumber").value.trim();
+    const har_lest = document.getElementById("newRead").checked ? "TRUE" : "FALSE";
+    const har_boka = document.getElementById("newOwned").checked ? "TRUE" : "FALSE";
+    const kommentar = document.getElementById("newComment").value.trim();
+
+    // Enkel validering
+    if (!tittel || !forfatter) {
+        alert("Tittel og forfatter må fylles ut");
+        return;
+    }
+
+    // Legg til ny bok i arrayet
+    books.push({
+        tittel,
+        forfatter,
+        serie: serie || "",
+        nummer: nummer || "",
+        har_lest,
+        har_boka,
+        kommentar: kommentar || ""
+    });
+
+    // Lagre CSV og oppdater visningen
+    await saveCSV();
+    renderBooks(books);
+
+    // Tøm feltene
+    document.getElementById("newTitle").value = "";
+    document.getElementById("newAuthor").value = "";
+    document.getElementById("newSeries").value = "";
+    document.getElementById("newNumber").value = "";
+    document.getElementById("newRead").checked = false;
+    document.getElementById("newOwned").checked = false;
+    document.getElementById("newComment").value = "";
+});
+
+document.getElementById("toggleAddBook").addEventListener("click", () => {
+    const box = document.getElementById("addBook");
+    const btn = document.getElementById("toggleAddBook");
+
+    if (box.style.display === "none" || box.style.display === "") {
+        box.style.display = "block";
+        btn.textContent = "−"; // minus når åpen
+    } else {
+        box.style.display = "none";
+        btn.textContent = "+"; // plus når lukket
+    }
+});
+
